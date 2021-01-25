@@ -4,8 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:tomato/controller/homeController.dart';
 
 class HomePage extends StatelessWidget {
-
-
   var _homeControllerState;
   @override
   Widget build(BuildContext context) {
@@ -32,8 +30,13 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             _userInfo(),
-            SizedBox(height: 40,),
+            SizedBox(
+              height: 40,
+            ),
             _search(),
+            SizedBox(
+              height: 40,
+            ),
             _category(),
             _vender(),
           ],
@@ -60,7 +63,7 @@ class HomePage extends StatelessWidget {
         width: 45,
         child: ClipRRect(
             borderRadius: BorderRadius.circular(50),
-            child: Image.network(_homeControllerState.url)));
+            child: Image.network(_homeControllerState.userImgUrl)));
   }
 
   Widget _greeting() {
@@ -115,22 +118,71 @@ class HomePage extends StatelessWidget {
   }
 
   _searchIcon() {
-    return Card(
-      color: Colors.white,
-      elevation: 1,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
+    return ConstrainedBox(
+      constraints: BoxConstraints.tightFor(
+        width: 50,
+        height: 50,
+      ),
+      child: RaisedButton(
+        splashColor: Colors.lightBlue.shade100,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        color: Colors.white,
+        onPressed: () => print("search"),
         child: Icon(
-          Icons.search,
+          Icons.search_outlined,
           color: Colors.black,
         ),
       ),
     );
   }
 
-  _category() {
-    return Container();
+  Widget _category() {
+    return Container(
+      width: Get.width * .85,
+      height: Get.height * .06,
+      child: ListView(scrollDirection: Axis.horizontal, children: [
+        for (var key in _homeControllerState.categoryList.keys)
+          _eachCategory(
+            label: key,
+            assetUrl: _homeControllerState.categoryList[key],
+          )
+      ]),
+    );
+  }
+
+  Widget _eachCategory(
+      {String assetUrl, String label, Function onPressed, int index}) {
+    return GestureDetector(
+      onTap: () {
+        onPressed();
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 5),
+        padding: EdgeInsets.symmetric(horizontal: 15),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: Colors.amber,
+        ),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 25,
+              height: 25,
+              child: Image.asset(assetUrl),
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   _vender() {
