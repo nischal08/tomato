@@ -1,27 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tomato/screens/food_screen.dart';
+import 'package:tomato/screens/orders_screen.dart';
+import 'package:tomato/screens/restaurant_screen.dart';
 
 class HomeController extends ChangeNotifier {
-  String _categoryKey = "All";
-  // ignore: unnecessary_getters_setters
-  String get categoryKey => _categoryKey;
+  bool likeBtnFlag = false;
 
-  String _userImageUrl =
-      "https://scontent.fktm3-1.fna.fbcdn.net/v/t1.0-9/122777514_4658406440867560_8980358279672578081_o.jpg?_nc_cat=111&ccb=2&_nc_sid=09cbfe&_nc_ohc=j_GSxid7-BkAX-0N8un&_nc_ht=scontent.fktm3-1.fna&oh=a792f16e8aeb45b8fcb7e52017583779&oe=602C5F51";
-  // ignore: unnecessary_getters_setters
-  String get userImgUrl => _userImageUrl;
+  onClickLikeBtn() {
+    likeBtnFlag = !likeBtnFlag;
+    notifyListeners();
+  }
 
-  Map<String, String> _categoryList = {
-    "All": null,
-    "Fast food": "assets/foods/pizza.png",
-    "Bakery": "assets/foods/pancake.png",
-    "Drinks": "assets/foods/beverage.png",
+  List _screensList = [
+    RestaurantScreen(),
+    FoodScreen(),
+    OrderScreen(),
+  ];
+  // ignore: unnecessary_getters_setters
+  List get screensList => _screensList;
+
+  // ignore: unnecessary_getters_setters
+  set screensList(List value) => _screensList = value;
+
+  var bottomNavItemData = {
+    Icon(Icons.food_bank_outlined): 'Restaurant',
+    Icon(Icons.fastfood_outlined): 'Food',
+    Icon(Icons.local_dining_outlined): 'Order',
   };
-  // ignore: unnecessary_getters_setters
-  Map get categoryList => _categoryList;
 
-  onClickCategory({String currentKey}) {
-    _categoryKey = currentKey;
+  int _bottomNavIndex = 0;
+  // ignore: unnecessary_getters_setters
+  int get bottomNavIndex => _bottomNavIndex;
+
+  // ignore: unnecessary_getters_setters
+  set bottomNavIndex(int value) => _bottomNavIndex = value;
+
+  onBottomNavClick(int index) {
+    bottomNavIndex = index;
     notifyListeners();
   }
 }
