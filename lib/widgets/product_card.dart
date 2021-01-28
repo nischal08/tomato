@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
-import 'package:tomato/constant/customColor.dart';
-import 'package:tomato/controller/homeController.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ProductCard extends StatelessWidget {
-  HomeController _homeControllerState;
-  var _theme;
   final String favFood;
   final String venderName;
   final double rating;
@@ -23,7 +19,6 @@ class ProductCard extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    _theme = Theme.of(Get.context);
     return _venderCard();
   }
 
@@ -87,7 +82,12 @@ class ProductCard extends StatelessWidget {
         Container(
           child: Text(
             "Rs.${price}",
-            style: Theme.of(Get.context).textTheme.caption,
+            style: GoogleFonts.openSans(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            
+            ),
           ),
         ),
       ],

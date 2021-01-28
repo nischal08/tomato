@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class RestaurantController extends ChangeNotifier {
+class VendersController extends ChangeNotifier {
  
   String _categoryKey = "All";
   // ignore: unnecessary_getters_setters

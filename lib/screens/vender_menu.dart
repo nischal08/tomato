@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:tomato/constant/customColor.dart';
 import 'package:tomato/controller/homeController.dart';
-import 'package:tomato/screens/detail_screen.dart';
+import 'package:tomato/screens/product_detail_screen.dart';
 import 'package:tomato/widgets/product_card.dart';
 
 class VenderMenu extends StatelessWidget {
@@ -51,7 +51,7 @@ class VenderMenu extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () => Get.to(
-                    DetailScreen(),
+                    ProductDetailScreen(),
                   ),
                   child: ProductCard(
                     favFood: "Mixed Pizza",

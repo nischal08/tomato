@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:tomato/controller/restaurantController.dart';
-import 'package:tomato/screens/detail_screen.dart';
+import 'package:tomato/controller/productDetailController.dart';
+import 'package:tomato/controller/vendersController.dart';
 import 'package:tomato/screens/home.dart';
 
 import 'controller/homeController.dart';
@@ -22,12 +22,16 @@ class MyApp extends StatelessWidget {
           create: (_) => HomeController(),
         ),
         ChangeNotifierProvider(
-          create: (_) => RestaurantController(),
+          create: (_) => VendersController(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ProductDetailController(),
         ),
       ],
       child: GetMaterialApp(
         title: 'Tomato',
         theme: ThemeData(
+          
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
           buttonColor: Color(0xffE31C1B),
@@ -35,54 +39,55 @@ class MyApp extends StatelessWidget {
           splashColor: Color(0xFFA4D4F0),
           cardColor: Colors.white,
           textTheme: TextTheme(
-            overline: GoogleFonts.roboto(
+          
+            overline: GoogleFonts.raleway(
               color: Colors.grey,
               fontSize: 14,
               letterSpacing: 0.5,
             ),
-            caption: GoogleFonts.roboto(
+            caption: GoogleFonts.raleway(
               fontSize: 18,
               fontWeight: FontWeight.w500,
               color: Colors.black,
               letterSpacing: 0.5,
             ),
-            button: GoogleFonts.roboto(
+            button: GoogleFonts.raleway(
               color: Colors.black,
               fontSize: 14,
               letterSpacing: 0.5,
               fontWeight: FontWeight.w400,
             ),
-            subtitle1: GoogleFonts.roboto(
+            subtitle1: GoogleFonts.raleway(
               color: Colors.black,
               fontSize: 17,
               fontWeight: FontWeight.w300,
               letterSpacing: 0.5,
             ),
-            subtitle2: GoogleFonts.roboto(
+            subtitle2: GoogleFonts.raleway(
               color: Colors.black,
               fontSize: 17,
               fontWeight: FontWeight.w400,
               letterSpacing: 0.5,
             ),
-            headline5: GoogleFonts.roboto(
+            headline5: GoogleFonts.raleway(
               color: Colors.black,
               fontSize: 20,
               letterSpacing: 0.5,
               fontWeight: FontWeight.w300,
             ),
-            headline6: GoogleFonts.roboto(
+            headline6: GoogleFonts.raleway(
               fontSize: 20,
               letterSpacing: 0.5,
               color: Colors.black,
               fontWeight: FontWeight.w500,
             ),
-            headline4: GoogleFonts.roboto(
+            headline4: GoogleFonts.raleway(
               color: Colors.black,
               fontSize: 22,
               letterSpacing: 0.5,
               fontWeight: FontWeight.w500,
             ),
-            headline3: GoogleFonts.roboto(
+            headline3: GoogleFonts.raleway(
               fontSize: 22,
               letterSpacing: 0.5,
               color: Colors.black,

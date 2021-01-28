@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:tomato/constant/customColor.dart';
-import 'package:tomato/controller/restaurantController.dart';
+import 'package:tomato/controller/vendersController.dart';
 import 'package:tomato/widgets/custom_widgets.dart';
 import 'package:tomato/widgets/product_card.dart';
 import 'package:tomato/screens/vender_menu.dart';
 
 // ignore: must_be_immutable
-class RestaurantScreen extends StatelessWidget {
+class VendersScreen extends StatelessWidget {
   var _theme = Theme.of(Get.context);
   TextTheme _themeData = Theme.of(Get.context).textTheme;
-  RestaurantController _restaurantControllerState;
+  VendersController _restaurantControllerState;
   @override
   Widget build(BuildContext context) {
-    _restaurantControllerState = Provider.of<RestaurantController>(context);
+    _restaurantControllerState = Provider.of<VendersController>(context);
     return _body();
   }
 
@@ -58,7 +59,7 @@ class RestaurantScreen extends StatelessWidget {
               },
               child: ProductCard(
                 favFood: "Sekuwa",
-                venderName: "BajekoSeKuwa",
+                venderName: "Bajeko SeKuwa",
                 rating: 4.5,
                 assetUrl: 'assets/venders/bajeko.jpg',
               ),
@@ -187,7 +188,7 @@ class RestaurantScreen extends StatelessWidget {
             ),
             Text(
               label,
-              style: TextStyle(
+              style: GoogleFonts.raleway(
                   fontSize: 15,
                   fontWeight: FontWeight.w600,
                   color: _restaurantControllerState.categoryKey == label
