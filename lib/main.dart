@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:tomato/controller/restaurantController.dart';
+import 'package:tomato/screens/detail_screen.dart';
 import 'package:tomato/screens/home.dart';
 
 import 'controller/homeController.dart';
@@ -17,8 +18,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => HomeController()),
-        ChangeNotifierProvider(create: (_) => RestaurantController()),
+        ChangeNotifierProvider(
+          create: (_) => HomeController(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => RestaurantController(),
+        ),
       ],
       child: GetMaterialApp(
         title: 'Tomato',
@@ -27,7 +32,7 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
           buttonColor: Color(0xffE31C1B),
           scaffoldBackgroundColor: Color(0xF9FCFEFF),
-          splashColor: Colors.lightBlue.shade100,
+          splashColor: Color(0xFFA4D4F0),
           cardColor: Colors.white,
           textTheme: TextTheme(
             overline: GoogleFonts.roboto(

@@ -3,8 +3,9 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:tomato/constant/customColor.dart';
 import 'package:tomato/controller/restaurantController.dart';
-import 'package:tomato/widgets/productCard.dart';
-import 'package:tomato/screens/vender_detail.dart';
+import 'package:tomato/widgets/custom_widgets.dart';
+import 'package:tomato/widgets/product_card.dart';
+import 'package:tomato/screens/vender_menu.dart';
 
 // ignore: must_be_immutable
 class RestaurantScreen extends StatelessWidget {
@@ -51,7 +52,9 @@ class RestaurantScreen extends StatelessWidget {
           for (int i = 0; i < 8; i++)
             GestureDetector(
               onTap: () {
-                Get.to(VenderDetail());
+                Get.to(
+                  VenderMenu(),
+                );
               },
               child: ProductCard(
                 favFood: "Sekuwa",
@@ -115,7 +118,9 @@ class RestaurantScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _searchTitle(),
-          _searchIcon(),
+          CustomIcon(
+            icon: Icons.search_outlined,
+          ),
         ],
       ),
     );
@@ -128,24 +133,6 @@ class RestaurantScreen extends StatelessWidget {
         Text("Find your", style: _themeData.headline5),
         Text("favourite foods", style: _themeData.headline6),
       ],
-    );
-  }
-
-  _searchIcon() {
-    return ConstrainedBox(
-      constraints: BoxConstraints.tightFor(
-        width: 50,
-        height: 50,
-      ),
-      child: FlatButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        color: _theme.cardColor,
-        onPressed: () => print("search"),
-        child: Icon(
-          Icons.search_outlined,
-          color: Colors.black,
-        ),
-      ),
     );
   }
 

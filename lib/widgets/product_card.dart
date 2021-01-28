@@ -10,8 +10,7 @@ class ProductCard extends StatelessWidget {
   final String favFood;
   final String venderName;
   final double rating;
-  final double price;
-  final bool productFlag;
+  final int price;
   final String assetUrl;
   final double productPadding;
   ProductCard({
@@ -21,59 +20,11 @@ class ProductCard extends StatelessWidget {
     this.venderName,
     this.rating,
     this.price,
-    this.productFlag = false,
   });
   @override
   Widget build(BuildContext context) {
-    _homeControllerState = Provider.of<HomeController>(context);
     _theme = Theme.of(Get.context);
-    return productFlag
-        ? Stack(
-            children: [
-              _venderCard(),
-              Positioned(
-                right: 40,
-                top: 1,
-                child: _addtoCart(),
-              ),
-              Positioned(
-                right: 45,
-                bottom: 30,
-                child: _favBtn(),
-              ),
-            ],
-          )
-        : _venderCard();
-  }
-
-  Widget _favBtn() {
-    return GestureDetector(
-      onTap: () {
-        _homeControllerState.onClickLikeBtn();
-      },
-      child: Icon(
-        Icons.favorite,
-        size: 20,
-        color: _homeControllerState.likeBtnFlag
-            ? CustomColors.lightRed
-            : CustomColors.lightBrown,
-      ),
-    );
-  }
-
-  Widget _addtoCart() {
-    return Container(
-      padding: EdgeInsets.all(6),
-      decoration: BoxDecoration(
-        color: CustomColors.lightRed.withOpacity(0.9),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Icon(
-        Icons.add,
-        size: 18,
-        color: Theme.of(Get.context).cardColor,
-      ),
-    );
+    return _venderCard();
   }
 
   Widget _venderCard() {

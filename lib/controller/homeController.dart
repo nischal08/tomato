@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tomato/screens/food_screen.dart';
 import 'package:tomato/screens/orders_screen.dart';
-import 'package:tomato/screens/restaurant_screen.dart';
+import 'package:tomato/screens/vender_screen.dart';
 
 class HomeController extends ChangeNotifier {
   bool likeBtnFlag = false;

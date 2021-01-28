@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:tomato/constant/customColor.dart';
-import 'package:tomato/widgets/productCard.dart';
+import 'package:tomato/controller/homeController.dart';
+import 'package:tomato/screens/detail_screen.dart';
+import 'package:tomato/widgets/product_card.dart';
 
-class VenderDetail extends StatelessWidget {
+class VenderMenu extends StatelessWidget {
+  HomeController _homeControllerState;
   var _theme = Theme.of(Get.context);
   TextTheme _themeData = Theme.of(Get.context).textTheme;
 
   @override
   Widget build(BuildContext context) {
+    _homeControllerState = Provider.of<HomeController>(context);
     return Scaffold(
       body: _body(),
     );
@@ -42,16 +47,64 @@ class VenderDetail extends StatelessWidget {
       child: ListView(
         children: [
           for (int i = 0; i < 8; i++)
-            ProductCard(
-              favFood: "Mixed Pizza",
-              venderName: "Pepperoni Pizza",
-              rating: 4.5,
-              assetUrl: 'assets/foods/pizza.png',
-              price: 650,
-              productFlag: true,
-              productPadding: 12,
+            Stack(
+              children: [
+                GestureDetector(
+                  onTap: () => Get.to(
+                    DetailScreen(),
+                  ),
+                  child: ProductCard(
+                    favFood: "Mixed Pizza",
+                    venderName: "Pepperoni Pizza",
+                    rating: 4.5,
+                    assetUrl: 'assets/foods/pizza.png',
+                    price: 650,
+                    productPadding: 12,
+                  ),
+                ),
+                Positioned(
+                  right: 40,
+                  top: 1,
+                  child: _addtoCart(),
+                ),
+                Positioned(
+                  right: 45,
+                  bottom: 30,
+                  child: _favBtn(),
+                ),
+              ],
             ),
         ],
+      ),
+    );
+  }
+
+  Widget _favBtn() {
+    return GestureDetector(
+      onTap: () {
+        _homeControllerState.onClickLikeBtn();
+      },
+      child: Icon(
+        Icons.favorite,
+        size: 20,
+        color: _homeControllerState.likeBtnFlag
+            ? CustomColors.lightRed
+            : CustomColors.lightBrown,
+      ),
+    );
+  }
+
+  Widget _addtoCart() {
+    return Container(
+      padding: EdgeInsets.all(6),
+      decoration: BoxDecoration(
+        color: CustomColors.lightRed.withOpacity(0.9),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Icon(
+        Icons.shopping_cart_outlined,
+        size: 18,
+        color: Theme.of(Get.context).cardColor,
       ),
     );
   }
@@ -68,7 +121,7 @@ class VenderDetail extends StatelessWidget {
           Icon(
             Icons.arrow_back_ios,
             size: 30,
-            color: CustomColors.lightBrown,
+            color: CustomColors.lightGrey,
           ),
         ],
       ),
