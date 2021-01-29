@@ -57,7 +57,7 @@ class VenderMenu extends StatelessWidget {
                     favFood: "Mixed Pizza",
                     venderName: "Pepperoni Pizza",
                     rating: 4.5,
-                    assetUrl: 'assets/foods/pizza.png',
+                    assetUrl: 'assets/foods/polopizza.png',
                     price: 650,
                     productPadding: 12,
                   ),
@@ -118,13 +118,17 @@ class VenderMenu extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _title(),
-          Icon(
-            Icons.arrow_back_ios,
-            size: 30,
-            color: CustomColors.lightGrey,
-          ),
+          _backBtn(),
         ],
       ),
+    );
+  }
+
+  Icon _backBtn() {
+    return Icon(
+      Icons.arrow_back_ios,
+      size: 30,
+      color: CustomColors.lightGrey,
     );
   }
 

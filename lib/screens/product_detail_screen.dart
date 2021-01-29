@@ -3,15 +3,20 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:tomato/constant/customColor.dart';
+import 'package:tomato/controller/homeController.dart';
 import 'package:tomato/controller/productDetailController.dart';
+import 'package:tomato/screens/home.dart';
+import 'package:tomato/screens/orders_screen.dart';
 import 'package:tomato/widgets/custom_widgets.dart';
 
 class ProductDetailScreen extends StatelessWidget {
-  ProductDetailController _productDetailContrState;
+  ProductDetailController _prodDetailContr;
+  HomeController _homeContrstate;
   var _theme;
   @override
   Widget build(BuildContext context) {
-    _productDetailContrState = Provider.of<ProductDetailController>(context);
+    _prodDetailContr = Provider.of<ProductDetailController>(context);
+    _homeContrstate = Provider.of<HomeController>(context);
     _theme = Theme.of(context);
     return Scaffold(
       body: _body(),
@@ -33,20 +38,74 @@ class ProductDetailScreen extends StatelessWidget {
           SizedBox(
             height: 40,
           ),
-          Stack(
-            children: [
-              _productInfo(),
-              Positioned(
-                right: -80,
-                child: Container(
-                  height: 320,
-                  child: Image.asset('assets/foods/pizza.png'),
-                ),
-              ),
-            ],
+          _productInfoWithImg(),
+          SizedBox(
+            height: 40,
           ),
+          _transactionBtn(),
         ],
       ),
+    );
+  }
+
+  Widget _transactionBtn() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          _buyAddToCart(
+            title: "Buy Now",
+            bgColor: CustomColors.darkBrown,
+            onPressed: () {},
+          ),
+          _buyAddToCart(
+              title: "Add To Cart",
+              bgColor: CustomColors.darkRed,
+              onPressed: () async {
+                await _homeContrstate.onBottomNavClick(2);
+                Get.to(
+                  Home(),
+                );
+              }),
+        ],
+      ),
+    );
+  }
+
+  Widget _buyAddToCart({String title, Color bgColor, Function onPressed}) {
+    return MaterialButton(
+      height: 45,
+      minWidth: 168,
+      elevation: 5.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
+      onPressed: onPressed,
+      color: bgColor,
+      child: Text(
+        title,
+        style: GoogleFonts.raleway(
+          color: _theme.cardColor,
+          fontWeight: FontWeight.w600,
+          fontSize: 17,
+        ),
+      ),
+    );
+  }
+
+  Stack _productInfoWithImg() {
+    return Stack(
+      children: [
+        _productInfo(),
+        Positioned(
+          right: -80,
+          child: Container(
+            height: 320,
+            child: Image.asset('assets/foods/polopizza.png'),
+          ),
+        ),
+      ],
     );
   }
 
@@ -85,6 +144,10 @@ class ProductDetailScreen extends StatelessWidget {
             height: 30.0,
           ),
           _productSizes(),
+          SizedBox(
+            height: 15,
+          ),
+          _productQuantity(),
         ],
       ),
     );
@@ -93,50 +156,89 @@ class ProductDetailScreen extends StatelessWidget {
   Widget _productSizes() {
     return Row(
       children: [
-        for (String each in _productDetailContrState.productSizeList)
-          _eachProductSize(
+        for (String each in _prodDetailContr.productSizeList)
+          _eachProductBox(
+            isSelected: _prodDetailContr.currentProductSize ==
+                _prodDetailContr.productSizeList.indexOf(each),
             label: each,
-            onPressed: _productDetailContrState.onProductSizeClick(
-              _productDetailContrState.productSizeList.indexOf(each),
-            ),
+            onPressed: () {
+              _prodDetailContr.onProductSizeClick(
+                _prodDetailContr.productSizeList.indexOf(each),
+              );
+            },
           ),
       ],
     );
   }
 
-  Widget _eachProductSize({
+  Widget _productQuantity() {
+    return Row(
+      children: [
+        _eachProductBox(
+          icon: _prodDetailContr.prodQuantityList[0],
+          onPressed: () {
+            _prodDetailContr.onDecrQuantity();
+          },
+          isSelected: !_prodDetailContr.colorFlag,
+        ),
+        Container(
+          height: 40,
+          width: 38,
+          alignment: Alignment.center,
+          margin: EdgeInsets.only(right: 4),
+          child: Text(
+            _prodDetailContr.currentQuantity.toString(),
+            style: GoogleFonts.robotoSlab(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        _eachProductBox(
+          icon: _prodDetailContr.prodQuantityList[1],
+          onPressed: () {
+            _prodDetailContr.onIncrQuantity();
+          },
+          isSelected: _prodDetailContr.colorFlag,
+        ),
+      ],
+    );
+  }
+
+  Widget _eachProductBox({
     IconData icon,
     String label,
     Function onPressed,
+    bool isSelected = false,
   }) {
     return GestureDetector(
-      onTap: () {
-        onPressed();
-      },
+      onTap: onPressed,
       child: Container(
         height: 40,
-        width: 40,
+        width: 38,
         alignment: Alignment.center,
         margin: EdgeInsets.only(right: 4),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: _productDetailContrState.productSizeList[
-                      _productDetailContrState.currentProductSize] ==
-                  label
-              ? CustomColors.lightRed
-              : _theme.cardColor,
+          color: isSelected ? CustomColors.lightRed : _theme.cardColor,
         ),
         child: icon != null
-            ? Icon(icon)
+            ? Icon(
+                icon,
+                size: 18,
+                color: isSelected
+                    ? _theme.cardColor
+                    : CustomColors.unselectedColor,
+              )
             : Text(
                 label,
                 style: GoogleFonts.raleway(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                    color:
-                        // _restaurantControllerState.categoryKey == label
-                        //     ? Colors.white:
-                        Colors.white),
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: isSelected
+                      ? _theme.cardColor
+                      : CustomColors.unselectedColor,
+                ),
               ),
       ),
     );
@@ -151,7 +253,7 @@ class ProductDetailScreen extends StatelessWidget {
       children: [
         Text(
           key,
-          style: GoogleFonts.raleway(
+          style: GoogleFonts.robotoSlab(
             fontWeight: FontWeight.w500,
             fontSize: 15,
             color: Colors.black87.withOpacity(0.7),
@@ -162,7 +264,7 @@ class ProductDetailScreen extends StatelessWidget {
         ),
         Text(
           value,
-          style: GoogleFonts.raleway(
+          style: GoogleFonts.robotoSlab(
             fontSize: 17,
             fontWeight: FontWeight.w600,
           ),
@@ -174,10 +276,8 @@ class ProductDetailScreen extends StatelessWidget {
   Widget _price(int price) {
     return Text(
       "Rs.${price}",
-      style: GoogleFonts.b612(
-        fontWeight: FontWeight.w800,
-        fontSize: 24,
-      ),
+      style: GoogleFonts.robotoSlab(
+          fontWeight: FontWeight.w800, fontSize: 24, letterSpacing: 0.5),
     );
   }
 
@@ -207,9 +307,18 @@ class ProductDetailScreen extends StatelessWidget {
           CustomIcon(
             paddingLeft: 9,
             icon: Icons.arrow_back_ios,
+            onPressed: () {
+              Get.back();
+            },
           ),
           _title(),
           CustomIcon(
+            onPressed: () async {
+              await _homeContrstate.onBottomNavClick(2);
+              Get.to(
+                Home(),
+              );
+            },
             icon: Icons.shopping_bag_outlined,
           ),
         ],

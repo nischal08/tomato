@@ -10,4 +10,5 @@ class CustomColors {
   static Color yellow = Color(0xffEC983B);
   static Color backgroundColor = Color(0xff717E8A);
   static Color lightGrey = Colors.grey[500];
+  static Color unselectedColor = Colors.black;
 }

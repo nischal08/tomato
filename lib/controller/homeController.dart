@@ -40,4 +40,6 @@ class HomeController extends ChangeNotifier {
     bottomNavIndex = index;
     notifyListeners();
   }
+
+ 
 }
