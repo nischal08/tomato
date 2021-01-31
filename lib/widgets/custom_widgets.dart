@@ -1,5 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:tomato/constant/customColor.dart';
+
+class EachProductBox extends StatelessWidget {
+  var _theme;
+  final IconData icon;
+  final String label;
+  final Function onPressed;
+  final bool isSelected;
+  EachProductBox({
+    this.icon,
+    this.label,
+    this.onPressed,
+    this.isSelected = false,
+  });
+  @override
+  Widget build(BuildContext context) {
+     _theme= Theme.of(context);
+    return GestureDetector(
+        onTap: onPressed,
+        child: Container(
+          height: 40,
+          width: 38,
+          alignment: Alignment.center,
+          margin: EdgeInsets.only(right: 4),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: isSelected ? CustomColors.lightRed : _theme.cardColor,
+          ),
+          child: icon != null
+              ? Icon(
+                  icon,
+                  size: 18,
+                  color: isSelected
+                      ? _theme.cardColor
+                      : CustomColors.unselectedColor,
+                )
+              : Text(
+                  label,
+                  style: GoogleFonts.raleway(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    color: isSelected
+                        ? _theme.cardColor
+                        : CustomColors.unselectedColor,
+                  ),
+                ),
+        ));
+  }
+}
 
 class CustomIcon extends StatelessWidget {
   final IconData icon;

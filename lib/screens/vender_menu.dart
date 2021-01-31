@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:tomato/constant/customColor.dart';
 import 'package:tomato/controller/homeController.dart';
-import 'package:tomato/screens/product_detail_screen.dart';
 import 'package:tomato/widgets/product_card.dart';
 
 class VenderMenu extends StatelessWidget {
@@ -14,9 +13,7 @@ class VenderMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _homeControllerState = Provider.of<HomeController>(context);
-    return Scaffold(
-      body: _body(),
-    );
+    return _body();
   }
 
   Widget _body() {
@@ -50,9 +47,7 @@ class VenderMenu extends StatelessWidget {
             Stack(
               children: [
                 GestureDetector(
-                  onTap: () => Get.to(
-                    ProductDetailScreen(),
-                  ),
+                  onTap: () => _homeControllerState.onChangeWidget(2),
                   child: ProductCard(
                     favFood: "Mixed Pizza",
                     venderName: "Pepperoni Pizza",
@@ -124,11 +119,14 @@ class VenderMenu extends StatelessWidget {
     );
   }
 
-  Icon _backBtn() {
-    return Icon(
-      Icons.arrow_back_ios,
-      size: 30,
-      color: CustomColors.lightGrey,
+  GestureDetector _backBtn() {
+    return GestureDetector(
+      onTap: () => _homeControllerState.onChangeWidget(0),
+      child: Icon(
+        Icons.arrow_back_ios,
+        size: 30,
+        color: CustomColors.lightGrey,
+      ),
     );
   }
 

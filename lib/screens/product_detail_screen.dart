@@ -6,7 +6,6 @@ import 'package:tomato/constant/customColor.dart';
 import 'package:tomato/controller/homeController.dart';
 import 'package:tomato/controller/productDetailController.dart';
 import 'package:tomato/screens/home.dart';
-import 'package:tomato/screens/orders_screen.dart';
 import 'package:tomato/widgets/custom_widgets.dart';
 
 class ProductDetailScreen extends StatelessWidget {
@@ -40,7 +39,7 @@ class ProductDetailScreen extends StatelessWidget {
           ),
           _productInfoWithImg(),
           SizedBox(
-            height: 40,
+            height: 25,
           ),
           _transactionBtn(),
         ],
@@ -57,7 +56,12 @@ class ProductDetailScreen extends StatelessWidget {
           _buyAddToCart(
             title: "Buy Now",
             bgColor: CustomColors.darkBrown,
-            onPressed: () {},
+            onPressed: () async {
+              await _homeContrstate.onBottomNavClick(2);
+              Get.to(
+                Home(),
+              );
+            },
           ),
           _buyAddToCart(
               title: "Add To Cart",
@@ -157,7 +161,7 @@ class ProductDetailScreen extends StatelessWidget {
     return Row(
       children: [
         for (String each in _prodDetailContr.productSizeList)
-          _eachProductBox(
+          EachProductBox(
             isSelected: _prodDetailContr.currentProductSize ==
                 _prodDetailContr.productSizeList.indexOf(each),
             label: each,
@@ -174,7 +178,7 @@ class ProductDetailScreen extends StatelessWidget {
   Widget _productQuantity() {
     return Row(
       children: [
-        _eachProductBox(
+        EachProductBox(
           icon: _prodDetailContr.prodQuantityList[0],
           onPressed: () {
             _prodDetailContr.onDecrQuantity();
@@ -194,7 +198,7 @@ class ProductDetailScreen extends StatelessWidget {
             ),
           ),
         ),
-        _eachProductBox(
+        EachProductBox(
           icon: _prodDetailContr.prodQuantityList[1],
           onPressed: () {
             _prodDetailContr.onIncrQuantity();
@@ -205,45 +209,7 @@ class ProductDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _eachProductBox({
-    IconData icon,
-    String label,
-    Function onPressed,
-    bool isSelected = false,
-  }) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        height: 40,
-        width: 38,
-        alignment: Alignment.center,
-        margin: EdgeInsets.only(right: 4),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: isSelected ? CustomColors.lightRed : _theme.cardColor,
-        ),
-        child: icon != null
-            ? Icon(
-                icon,
-                size: 18,
-                color: isSelected
-                    ? _theme.cardColor
-                    : CustomColors.unselectedColor,
-              )
-            : Text(
-                label,
-                style: GoogleFonts.raleway(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                  color: isSelected
-                      ? _theme.cardColor
-                      : CustomColors.unselectedColor,
-                ),
-              ),
-      ),
-    );
-  }
-
+  
   Widget _eachProductInfo({
     String key,
     String value,
@@ -308,7 +274,7 @@ class ProductDetailScreen extends StatelessWidget {
             paddingLeft: 9,
             icon: Icons.arrow_back_ios,
             onPressed: () {
-              Get.back();
+              _homeContrstate.onChangeWidget(1);
             },
           ),
           _title(),

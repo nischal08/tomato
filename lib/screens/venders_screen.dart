@@ -3,18 +3,20 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:tomato/constant/customColor.dart';
+import 'package:tomato/controller/homeController.dart';
 import 'package:tomato/controller/vendersController.dart';
 import 'package:tomato/widgets/custom_widgets.dart';
 import 'package:tomato/widgets/product_card.dart';
-import 'package:tomato/screens/vender_menu.dart';
 
 // ignore: must_be_immutable
 class VendersScreen extends StatelessWidget {
   var _theme = Theme.of(Get.context);
   TextTheme _themeData = Theme.of(Get.context).textTheme;
   VendersController _restaurantControllerState;
+  HomeController _homeControllerState;
   @override
   Widget build(BuildContext context) {
+    _homeControllerState = Provider.of<HomeController>(context);
     _restaurantControllerState = Provider.of<VendersController>(context);
     return _body();
   }
@@ -53,9 +55,7 @@ class VendersScreen extends StatelessWidget {
           for (int i = 0; i < 8; i++)
             GestureDetector(
               onTap: () {
-                Get.to(
-                  VenderMenu(),
-                );
+                _homeControllerState.onChangeWidget(1);
               },
               child: ProductCard(
                 favFood: "Sekuwa",

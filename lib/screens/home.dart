@@ -1,7 +1,9 @@
-import 'package:flutter/material.dart'; 
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tomato/constant/customColor.dart';
 import 'package:tomato/controller/homeController.dart';
+import 'package:tomato/screens/product_detail_screen.dart';
+import 'package:tomato/screens/vender_menu.dart';
 
 class Home extends StatelessWidget {
   HomeController _homeControllerState;
@@ -11,8 +13,14 @@ class Home extends StatelessWidget {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-      body:
+      body: IndexedStack(
+        index: _homeControllerState.widgetIndex,
+        children: [
           _homeControllerState.screensList[_homeControllerState.bottomNavIndex],
+          VenderMenu(),
+          ProductDetailScreen(),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _homeControllerState.bottomNavIndex,
         items: [

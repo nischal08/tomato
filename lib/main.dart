@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:tomato/controller/OrderController.dart';
 import 'package:tomato/controller/productDetailController.dart';
 import 'package:tomato/controller/vendersController.dart';
 import 'package:tomato/screens/home.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        
         ChangeNotifierProvider(
           create: (_) => HomeController(),
         ),
@@ -26,6 +28,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => ProductDetailController(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => OrderController(),
         ),
       ],
       child: GetMaterialApp(

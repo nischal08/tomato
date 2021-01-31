@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tomato/constant/customColor.dart';
 
 class ProductCard extends StatelessWidget {
   final String favFood;
@@ -9,13 +10,17 @@ class ProductCard extends StatelessWidget {
   final int price;
   final String assetUrl;
   final double productPadding;
+  final bool addToCartFlag;
+  final Color priceColor;
   ProductCard({
+    this.priceColor,
     this.productPadding,
     this.assetUrl,
     this.favFood,
     this.venderName,
     this.rating,
     this.price,
+    this.addToCartFlag = false,
   });
   @override
   Widget build(BuildContext context) {
@@ -28,7 +33,7 @@ class ProductCard extends StatelessWidget {
         vertical: productPadding ?? 10,
         horizontal: 30,
       ),
-      padding: EdgeInsets.all(17),
+      padding: EdgeInsets.all(addToCartFlag?20:13),
       height: 140,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
@@ -38,7 +43,7 @@ class ProductCard extends StatelessWidget {
         children: [
           _venderLogo(),
           SizedBox(
-            width: 35,
+            width: addToCartFlag?10:35,
           ),
           _venderInfo(),
         ],
@@ -58,16 +63,21 @@ class ProductCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _rating(),
-          SizedBox(
-            height: 10,
-          ),
+          addToCartFlag
+              ? SizedBox(
+                  width: 1,
+                )
+              : _rating(),
           _title(),
           SizedBox(
-            height: 10,
+            height: price != null ? 8 : 10,
           ),
           _type(),
-          price != null ? _price() : SizedBox(),
+          price != null
+              ? _price()
+              : SizedBox(
+                  height: 0,
+                ),
         ],
       ),
     );
@@ -83,10 +93,9 @@ class ProductCard extends StatelessWidget {
           child: Text(
             "Rs.${price}",
             style: GoogleFonts.openSans(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-            
+              fontSize:addToCartFlag?18: 16,
+              fontWeight: addToCartFlag?FontWeight.w800:FontWeight.w600,
+              color: addToCartFlag?CustomColors.lightRed:Colors.black,
             ),
           ),
         ),
@@ -96,21 +105,28 @@ class ProductCard extends StatelessWidget {
 
   Widget _rating() {
     return Container(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
+      child: Column(
         children: [
-          Text(
-            "${rating}",
-            style: Theme.of(Get.context).textTheme.overline,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                "${rating}",
+                style: Theme.of(Get.context).textTheme.overline,
+              ),
+              SizedBox(
+                width: 4,
+              ),
+              Icon(
+                Icons.star_rounded,
+                size: 16,
+                color: Colors.amber[300],
+              )
+            ],
           ),
           SizedBox(
-            width: 4,
+            height: 10,
           ),
-          Icon(
-            Icons.star_rounded,
-            size: 16,
-            color: Colors.amber[300],
-          )
         ],
       ),
     );

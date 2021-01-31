@@ -5,10 +5,16 @@ import 'package:tomato/screens/orders_screen.dart';
 import 'package:tomato/screens/venders_screen.dart';
 
 class HomeController extends ChangeNotifier {
+  int widgetIndex = 0;
   bool likeBtnFlag = false;
 
   onClickLikeBtn() {
     likeBtnFlag = !likeBtnFlag;
+    notifyListeners();
+  }
+
+  onChangeWidget(int index) {
+    widgetIndex = index;
     notifyListeners();
   }
 
@@ -37,9 +43,9 @@ class HomeController extends ChangeNotifier {
   set bottomNavIndex(int value) => _bottomNavIndex = value;
 
   onBottomNavClick(int index) {
+    widgetIndex = 0;
+
     bottomNavIndex = index;
     notifyListeners();
   }
-
- 
 }
