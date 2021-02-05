@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:tomato/constant/customColor.dart';
 import 'package:tomato/controller/OrderController.dart';
 import 'package:tomato/controller/homeController.dart';
 import 'package:tomato/widgets/product_card.dart';
@@ -33,9 +34,38 @@ class OrderScreen extends StatelessWidget {
               height: 20,
             ),
             _vender(),
+            _checkoutBtn(),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _checkoutBtn() {
+    return Column(
+      children: [
+        MaterialButton(
+          height: 45,
+          minWidth: 168,
+          elevation: 5.0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          onPressed: () {},
+          color: CustomColors.darkRed,
+          child: Text(
+            "Checkout",
+            style: GoogleFonts.raleway(
+              color: Theme.of(Get.context).cardColor,
+              fontWeight: FontWeight.w600,
+              fontSize: 17,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 80,
+        ),
+      ],
     );
   }
 

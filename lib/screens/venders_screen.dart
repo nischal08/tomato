@@ -58,10 +58,10 @@ class VendersScreen extends StatelessWidget {
                 _homeControllerState.onChangeWidget(1);
               },
               child: ProductCard(
-                favFood: "Sekuwa",
-                venderName: "Bajeko SeKuwa",
+                favFood: "Pizza",
+                venderName: "PizzaHut",
                 rating: 4.5,
-                assetUrl: 'assets/venders/bajeko.jpg',
+                assetUrl: 'assets/venders/pizzahut.png',
               ),
             ),
         ],

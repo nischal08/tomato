@@ -6,6 +6,9 @@ import 'package:tomato/controller/OrderController.dart';
 import 'package:tomato/controller/productDetailController.dart';
 import 'package:tomato/controller/vendersController.dart';
 import 'package:tomato/screens/home.dart';
+import 'package:tomato/screens/login_screen.dart';
+import 'package:tomato/screens/registration_screen.dart';
+import 'package:tomato/screens/welcome_screen.dart';
 
 import 'controller/homeController.dart';
 
@@ -100,7 +103,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: Home(),
+        home: WelcomeScreen(),
       ),
     );
   }

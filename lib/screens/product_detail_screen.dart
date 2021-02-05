@@ -53,7 +53,7 @@ class ProductDetailScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _buyAddToCart(
+          BuyAddToCart(
             title: "Buy Now",
             bgColor: CustomColors.darkBrown,
             onPressed: () async {
@@ -63,7 +63,7 @@ class ProductDetailScreen extends StatelessWidget {
               );
             },
           ),
-          _buyAddToCart(
+          BuyAddToCart(
               title: "Add To Cart",
               bgColor: CustomColors.darkRed,
               onPressed: () async {
@@ -77,26 +77,7 @@ class ProductDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buyAddToCart({String title, Color bgColor, Function onPressed}) {
-    return MaterialButton(
-      height: 45,
-      minWidth: 168,
-      elevation: 5.0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-      ),
-      onPressed: onPressed,
-      color: bgColor,
-      child: Text(
-        title,
-        style: GoogleFonts.raleway(
-          color: _theme.cardColor,
-          fontWeight: FontWeight.w600,
-          fontSize: 17,
-        ),
-      ),
-    );
-  }
+  
 
   Stack _productInfoWithImg() {
     return Stack(

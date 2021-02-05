@@ -14,7 +14,7 @@ class VendersController extends ChangeNotifier {
 
   Map<String, String> _categoryList = {
     "All": null,
-    "Fast food": "assets/foods/pizza.png",
+    "Fast food": "assets/foods/pizzapieces.png",
     "Bakery": "assets/foods/pancake.png",
     "Drinks": "assets/foods/beverage.png",
   };

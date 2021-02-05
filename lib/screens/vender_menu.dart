@@ -5,6 +5,8 @@ import 'package:tomato/constant/customColor.dart';
 import 'package:tomato/controller/homeController.dart';
 import 'package:tomato/widgets/product_card.dart';
 
+import 'home.dart';
+
 class VenderMenu extends StatelessWidget {
   HomeController _homeControllerState;
   var _theme = Theme.of(Get.context);
@@ -60,7 +62,14 @@ class VenderMenu extends StatelessWidget {
                 Positioned(
                   right: 40,
                   top: 1,
-                  child: _addtoCart(),
+                  child: GestureDetector(
+                      onTap: () async {
+                        await _homeControllerState.onBottomNavClick(2);
+                        Get.to(
+                          Home(),
+                        );
+                      },
+                      child: _addtoCart()),
                 ),
                 Positioned(
                   right: 45,
@@ -170,14 +179,14 @@ class VenderMenu extends StatelessWidget {
       height: 55,
       width: 55,
       child: Image.asset(
-        'assets/venders/bajeko.jpg',
+        'assets/venders/pizzahut.png',
       ),
     );
   }
 
   Widget _venderName() {
     return Text(
-      "Bajeko Sekuwa",
+      "PizzaHut",
       style: _themeData.headline6,
     );
   }

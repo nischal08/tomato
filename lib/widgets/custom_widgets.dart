@@ -3,6 +3,27 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tomato/constant/customColor.dart';
 
+Widget BuyAddToCart({String title, Color bgColor, Function onPressed}) {
+  return MaterialButton(
+    height: 45,
+    minWidth: 168,
+    elevation: 5.0,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(15),
+    ),
+    onPressed: onPressed,
+    color: bgColor,
+    child: Text(
+      title,
+      style: GoogleFonts.raleway(
+        color: Theme.of(Get.context).cardColor,
+        fontWeight: FontWeight.w600,
+        fontSize: 17,
+      ),
+    ),
+  );
+}
+
 class EachProductBox extends StatelessWidget {
   var _theme;
   final IconData icon;
@@ -17,7 +38,7 @@ class EachProductBox extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-     _theme= Theme.of(context);
+    _theme = Theme.of(context);
     return GestureDetector(
         onTap: onPressed,
         child: Container(
